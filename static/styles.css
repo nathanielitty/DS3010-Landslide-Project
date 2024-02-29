@@ -1,0 +1,21 @@
+body {
+    font-size: 14px;
+}
+.container {
+    margin-top: 10px;
+}
+h2 {
+    font-size: 1.5rem;
+}
+.input-field label {
+    font-size: 0.8rem;
+}
+.input-field input[type=range] {
+    margin: 0 5px;
+}
+.btn {
+    font-size: 0.8rem;
+    padding: 0 1rem;
+    color: white;
+    font-weight: bold;
+}

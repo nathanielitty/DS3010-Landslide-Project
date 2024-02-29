@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Landslide Prediction</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h2 class="center-align">Landslide Prediction</h2>
+        <form method="post">
+            <div class="row">
+                {% for col in attribute_columns %}
+                <div class="input-field col s12">
+                    <input type="range" id="{{ col }}" name="{{ col }}" min="1" max="5" value="{{ slider_values[col] }}" oninput="{{ col }}_value.textContent = this.value">
+                    <label for="{{ col }}" class="active">{{ col }}: <span id="{{ col }}_value">{{ slider_values[col] }}</span></label>
+                </div>
+                {% endfor %}
+            </div>
+            
+            <div class="row">
+                <div class="input-field col s12">
+                    <select name="model_selection" id="model_selection">
+                        {% for model in model_names %}
+                        <option value="{{ model }}" {% if model == selected_model_name %}selected{% endif %}>{{ model }}</option>
+                        {% endfor %}
+                    </select>
+                    <label for="model_selection">Model</label>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col s12 center-align">
+                    <input type="submit" value="Predict" class="btn waves-effect waves-light">
+                </div>
+            </div>
+        </form>
+        
+        {% if prediction is not none %}
+        <h2 class="center-align">
+        {% if prediction == 0 %}
+            There will not be a landslide.
+        {% else %}
+            A landslide is predicted to occur.
+        {% endif %}
+        </h2>
+        {% endif %}
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var elems = document.querySelectorAll('select');
+            var instances = M.FormSelect.init(elems);
+        });
+    </script>
+</body>
+</html>
